@@ -107,14 +107,21 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias update="sudo nala update"
 alias upgrade="sudo nala upgrade -y"
+alias backupdate="sudo apt -t bookworm-backports update"
+alias backupgrade="sudo apt -t bookworm-backports upgrade -y"
 alias c="clear"
 alias ls="colorls -A -x"
-alias cat="batcat"
+alias cat="batcat --color=always"
+alias fsearch="fzf -m --preview='batcat --color=always {}' | xargs -r nvim"
+alias search="fzf -m --preview='batcat --color=always {}'"
 install() {
   sudo nala install "$@"
 }
 remove() {
   sudo nala remove "$@"
+}
+backinstall() {
+  sudo apt -t bookworm-backports install "$@"
 }
 . "/home/amine/.deno/env"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
@@ -143,3 +150,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 eval "$(tmuxifier init -)"
 export PATH="$HOME/.local/bin:$PATH"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

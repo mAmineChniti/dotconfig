@@ -154,11 +154,6 @@ eval "$(tmuxifier init -)"
 export PATH="$HOME/.local/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export ORAENV_ASK=NO 
-. /opt/oracle/product/21c/dbhomeXE/bin/oraenv
-export ORACLE_HOME=/opt/oracle/product/21c/dbhomeXE
-export ORACLE_SID=XE
-export ORACLE_BASE=/opt/oracle
-export LD_LIBRARY_PATH=$ORACLE_HOME/lib:$LD_LIBRARY_PATH
-export PATH=$ORACLE_HOME/bin:$PATH
-export NLS_LANG=AMERICAN.US7ASCII
+if command -v symfony &>/dev/null; then
+    eval "$(symfony completion)"
+  fi

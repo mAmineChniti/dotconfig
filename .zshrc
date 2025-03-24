@@ -116,6 +116,8 @@ alias ls="colorls -A -x"
 alias cat="batcat --color=always"
 alias fsearch="fzf -m --preview='batcat --color=always {}' | xargs -r nvim"
 alias search="fzf -m --preview='batcat --color=always {}'"
+alias Desktop="cd ~/Desktop"
+alias Downloads="cd ~/Downloads"
 install() {
   sudo nala install "$@"
 }

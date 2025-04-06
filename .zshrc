@@ -127,13 +127,8 @@ remove() {
 backinstall() {
   sudo apt -t bookworm-backports install "$@"
 }
-. "/home/amine/.deno/env"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval `dircolors ~/.dir_colors/dircolors`
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
@@ -159,3 +154,12 @@ export PATH="$HOME/.local/bin:$PATH"
 if command -v symfony &>/dev/null; then
     eval "$(symfony completion)"
   fi
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="$HOME/.govm/shim:$PATH"
+
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+fi

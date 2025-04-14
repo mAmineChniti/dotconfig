@@ -160,6 +160,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 export PATH="$HOME/.govm/shim:$PATH"
 
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
+if [ -f ~/.zsh_secret ]; then
+  source ~/.zsh_secret
 fi

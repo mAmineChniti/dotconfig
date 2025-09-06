@@ -73,7 +73,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions gh nvm npm pip bun brew golang)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,10 +107,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias update="sudo nala update"
 alias upgrade="sudo nala upgrade -y"
-alias backupdate="sudo apt -t bookworm-backports update"
-alias backupgrade="sudo apt -t bookworm-backports upgrade -y"
+alias backupdate="sudo apt -t stable-backports update"
+alias backupgrade="sudo apt -t stable-backports upgrade -y"
 alias c="clear"
-alias cdc="cd && clear"
+alias cd="z"
+alias cdc="z && clear"
 alias wget="wget2 -c"
 alias ls="colorls -A -x"
 alias cat="batcat --color=always"
@@ -151,10 +152,6 @@ eval "$(tmuxifier init -)"
 export PATH="$HOME/.local/bin:$PATH"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if command -v symfony &>/dev/null; then
-    eval "$(symfony completion)"
-  fi
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -163,3 +160,10 @@ export PATH="$HOME/.govm/shim:$PATH"
 if [ -f ~/.zsh_secret ]; then
   source ~/.zsh_secret
 fi
+eval "$(zoxide init zsh)"
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
+alias cp='/usr/local/bin/cpg -g'
+alias mv='/usr/local/bin/mvg -g'

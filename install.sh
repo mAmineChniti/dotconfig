@@ -1,3 +1,3 @@
-ln .zshrc ~/.zshrc
-ln .tmux.conf ~/.tmux.conf
-ln .zsh_secret ~/.zsh_secret
+#!/bin/bash
+ln -sf .zshrc ~/.zshrc
+ln -sf .tmux.conf ~/.tmux.conf

@@ -105,31 +105,27 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias update="sudo nala update"
-alias upgrade="sudo nala upgrade -y"
-alias backupdate="sudo apt -t stable-backports update"
-alias backupgrade="sudo apt -t stable-backports upgrade -y"
+alias update="sudo pacman -Syu"
+alias upgrade="sudo pacman -Syu"
 alias c="clear"
 alias cd="z"
 alias cdc="z && clear"
-alias wget="wget2 -c"
+alias wget="wget -c"
 alias ls="colorls -A -x"
-alias cat="batcat --color=always"
-alias fsearch="fzf -m --preview='batcat --color=always {}' | xargs -r nvim"
-alias search="fzf -m --preview='batcat --color=always {}'"
+alias cat="bat --color=always"
+alias fsearch="fzf -m --preview='bat --color=always {}' | xargs -r nvim"
+alias search="fzf -m --preview='bat --color=always {}'"
 alias Desktop="cd ~/Desktop"
 alias Downloads="cd ~/Downloads"
-install() {
-  sudo nala install "$@"
-}
-remove() {
-  sudo nala remove "$@"
-}
-backinstall() {
-  sudo apt -t bookworm-backports install "$@"
-}
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-eval `dircolors ~/.dir_colors/dircolors`
+# Arch Linux required packages for this config:
+# pacman: zsh colorls bat fzf zoxide atuin go tmuxifier bun nvm brew neovim
+# AUR: colorls tmuxifier linuxbrew (if not installed by other means)
+if [ -d "/home/linuxbrew/.linuxbrew" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
+if [ -f ~/.dir_colors/dircolors ]; then
+  eval "$(dircolors ~/.dir_colors/dircolors)"
+fi
 
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$(go env GOPATH)/bin
@@ -141,20 +137,30 @@ if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
 fi
 
 # bun completions
-[ -s "/home/amine/.bun/_bun" ] && source "/home/amine/.bun/_bun"
+if [ -s "$HOME/.bun/_bun" ]; then
+  source "$HOME/.bun/_bun"
+fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export PATH="$HOME/.tmuxifier/bin:$PATH"
-eval "$(tmuxifier init -)"
+if command -v tmuxifier &>/dev/null; then
+  eval "$(tmuxifier init -)"
+fi
 export PATH="$HOME/.local/bin:$PATH"
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -f "$HOME/.fzf.zsh" ]; then
+  source "$HOME/.fzf.zsh"
+fi
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+  . "$NVM_DIR/nvm.sh"
+fi
+if [ -s "$NVM_DIR/bash_completion" ]; then
+  . "$NVM_DIR/bash_completion"
+fi
 export PATH="$HOME/.govm/shim:$PATH"
 
 if [ -f ~/.zsh_secret ]; then
@@ -162,8 +168,16 @@ if [ -f ~/.zsh_secret ]; then
 fi
 eval "$(zoxide init zsh)"
 
-. "$HOME/.atuin/bin/env"
+if [ -f "$HOME/.atuin/bin/env" ]; then
+  . "$HOME/.atuin/bin/env"
+fi
 
-eval "$(atuin init zsh)"
-alias cp='/usr/local/bin/cpg -g'
-alias mv='/usr/local/bin/mvg -g'
+if command -v atuin &>/dev/null; then
+  eval "$(atuin init zsh)"
+fi
+if command -v cpg &>/dev/null; then
+  alias cp='/usr/local/bin/cpg -g'
+fi
+if command -v mvg &>/dev/null; then
+  alias mv='/usr/local/bin/mvg -g'
+fi

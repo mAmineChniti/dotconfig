@@ -167,3 +167,7 @@ eval "$(zoxide init zsh)"
 eval "$(atuin init zsh)"
 alias cp='/usr/local/bin/cpg -g'
 alias mv='/usr/local/bin/mvg -g'
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

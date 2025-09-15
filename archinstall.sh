@@ -19,6 +19,7 @@ PKGS=(
     tar
     curl
     wget
+    git
     zsh
     tmux
     fzf
@@ -91,6 +92,7 @@ fi
 # Setup Flathub remote for Flatpak
 if command -v flatpak &>/dev/null; then
     flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    flatpak install flathub io.github.kolunmi.Bazaar -y
 fi
 
 if ! command -v brew &>/dev/null; then
@@ -101,6 +103,7 @@ fi
 if command -v brew &>/dev/null; then
     brew install gh
     brew install withgraphite/tap/graphite
+    brew install ghostty
 fi
 
 # Install freedownloadmanager from AUR
@@ -119,11 +122,9 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 fi
 
 # Symlink dotfiles
-ln -sf "$PWD/.zshrc" "$HOME/.zshrc"
-ln -sf "$PWD/.tmux.conf" "$HOME/.tmux.conf"
-ln -sf "$PWD/.zsh_secret" "$HOME/.zsh_secret"
-
-# Print success message
+sudo pacman -S --needed --noconfirm stow
+stow -d "$PWD" -t "$HOME" zsh tmux secrets
+stow -d "$PWD" -t "$HOME/.config" ghostty
 cat <<EOF
 
 ====================================
@@ -136,4 +137,7 @@ Dotconfig Arch install complete!
 - Tmux plugins ready
 ====================================
 
+To finish tmux plugin setup:
+1. Start tmux: tmux
+2. Press your prefix (default Ctrl+s) then I (capital i) to install plugins via TPM.
 EOF

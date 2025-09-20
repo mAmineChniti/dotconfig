@@ -33,7 +33,6 @@ PKGS=(
     go
     zoxide
     flatpak
-    gnome-software
     xdg-desktop-portal-hyprland
 )
 
@@ -54,8 +53,6 @@ fi
 if ! gem list colorls -i &>/dev/null; then
     echo "Installing colorls via gem..."
     gem install colorls
-    echo "Enabling colorls tab completion in .zshrc..."
-    grep -q 'tab_complete.sh' "$HOME/.zshrc" || echo 'source $(dirname $(gem which colorls))/tab_complete.sh' >> "$HOME/.zshrc"
 fi
 
 # Nerd Font instructions

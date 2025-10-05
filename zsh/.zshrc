@@ -119,6 +119,35 @@ alias fsearch="fzf -m --preview='bat --color=always {}' | xargs -r nvim"
 alias search="fzf -m --preview='bat --color=always {}'"
 alias Desktop="cd ~/Desktop"
 alias Downloads="cd ~/Downloads"
+pc() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: pc <package1> <package2> ..."
+    return 1
+  fi
+  sudo pacman -S "$@"
+}
+pcr() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: pcr <package1> <package2> ..."
+    return 1
+  fi
+  sudo pacman -Rns "$@"
+}
+yy() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: yy <package1> <package2> ..."
+    return 1
+  fi
+  yay -S "$@"
+}
+yyr() {
+  if [ $# -eq 0 ]; then
+    echo "Usage: yyr <package1> <package2> ..."
+    return 1
+  fi
+  yay -Rns "$@"
+}
+
 # Arch Linux required packages for this config:
 # pacman: zsh colorls bat fzf zoxide atuin go tmuxifier bun nvm brew neovim
 # AUR: colorls tmuxifier linuxbrew (if not installed by other means)
@@ -129,7 +158,7 @@ if [ -f ~/.dir_colors/dircolors ]; then
   eval "$(dircolors ~/.dir_colors/dircolors)"
 fi
 
-export PATH=$PATH:/usr/local/go/bin
+export PATH="$HOME/.govm/shim:$PATH"
 export PATH=$PATH:$(go env GOPATH)/bin
 export GOBIN=$HOME/go/bin
 export PATH=$PATH:$GOBIN
@@ -183,3 +212,11 @@ fi
 if command -v mvg &>/dev/null; then
   alias mv='/usr/local/bin/mvg -g'
 fi
+
+export PATH="/home/amine/.local/share/gem/ruby/3.4.0/bin:$PATH"
+export PATH=$PATH:/usr/bin
+export ELECTRON_ENABLE_WAYLAND=1
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

@@ -112,7 +112,7 @@ alias upgrade="sudo pacman -Syu"
 alias c="clear"
 alias cd="z"
 alias cdc="z && clear"
-alias wget="wget -c"
+alias wget="wget2 -c"
 alias ls="colorls -A -x"
 alias cat="bat --color=always"
 alias fsearch="fzf -m --preview='bat --color=always {}' | xargs -r nvim"
@@ -215,8 +215,7 @@ fi
 
 export PATH="/home/amine/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export PATH=$PATH:/usr/bin
+export PATH="/home/amine/.cargo/bin:$PATH"
 export ELECTRON_ENABLE_WAYLAND=1
-
-
 # Load Angular CLI autocompletion.
 source <(ng completion script)

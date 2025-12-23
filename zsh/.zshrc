@@ -113,7 +113,8 @@ alias c="clear"
 alias cd="z"
 alias cdc="z && clear"
 alias wget="wget2 -c"
-alias ls="colorls -A -x"
+alias lsh="colorls -A -x"
+alias ls="colorls -x"
 alias cat="bat --color=always"
 alias fsearch="fzf -m --preview='bat --color=always {}' | xargs -r nvim"
 alias search="fzf -m --preview='bat --color=always {}'"
@@ -194,8 +195,17 @@ if [ -s "$NVM_DIR/bash_completion" ]; then
 fi
 export PATH="$HOME/.govm/shim:$PATH"
 
-if [ -f ~/.zsh_secret ]; then
-  source ~/.zsh_secret
+# Prefer singular secrets filename used by some setups, fall back to
+# the stow-managed `~/.zsh_secrets` if present.
+if [ -f "${HOME}/.zsh_secret" ]; then
+  source "${HOME}/.zsh_secret"
+elif [ -f "${HOME}/.zsh_secrets" ]; then
+  source "${HOME}/.zsh_secrets"
+fi
+# If a GEMINI_API_KEY was set in the secrets file, export it so child
+# processes (terminal, nvim, etc.) inherit it.
+if [[ -n "${GEMINI_API_KEY-}" ]]; then
+  export GEMINI_API_KEY
 fi
 eval "$(zoxide init zsh)"
 
@@ -217,5 +227,10 @@ export PATH="/home/amine/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export PATH=$PATH:/usr/bin
 export PATH="/home/amine/.cargo/bin:$PATH"
 export ELECTRON_ENABLE_WAYLAND=1
-# Load Angular CLI autocompletion.
-source <(ng completion script)
+
+export JAVA_HOME=/usr/lib/jvm/default
+export PATH=$JAVA_HOME/bin:$PATH
+
+export M2_HOME=/usr/share/maven
+export PATH=$M2_HOME/bin:$PATH
+export HOMEBREW_NO_ENV_HINTS=1

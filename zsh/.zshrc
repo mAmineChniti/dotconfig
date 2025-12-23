@@ -223,9 +223,9 @@ if command -v mvg &>/dev/null; then
   alias mv='/usr/local/bin/mvg -g'
 fi
 
-export PATH="/home/amine/.local/share/gem/ruby/3.4.0/bin:$PATH"
+export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 export PATH=$PATH:/usr/bin
-export PATH="/home/amine/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 export ELECTRON_ENABLE_WAYLAND=1
 
 export JAVA_HOME=/usr/lib/jvm/default

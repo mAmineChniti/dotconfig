@@ -108,7 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias update="sudo pacman -Syu"
-alias upgrade="sudo pacman -Syu"
+alias yupdate="yay -Syu"
 alias c="clear"
 alias cd="z"
 alias cdc="z && clear"

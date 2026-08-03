@@ -75,7 +75,7 @@ pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/con
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions gh nvm npm pip bun brew golang)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions gh nvm npm pip bun brew aliases command-not-found)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -159,11 +159,6 @@ if [ -f ~/.dir_colors/dircolors ]; then
   eval "$(dircolors ~/.dir_colors/dircolors)"
 fi
 
-export PATH="$HOME/.govm/shim:$PATH"
-export PATH=$PATH:$(go env GOPATH)/bin
-export GOBIN=$HOME/go/bin
-export PATH=$PATH:$GOBIN
-
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
   tmux attach-session -t default || tmux new-session -s default
 fi
@@ -185,15 +180,6 @@ export PATH="$HOME/.local/bin:$PATH"
 if [ -f "$HOME/.fzf.zsh" ]; then
   source "$HOME/.fzf.zsh"
 fi
-
-export NVM_DIR="$HOME/.nvm"
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-  . "$NVM_DIR/nvm.sh"
-fi
-if [ -s "$NVM_DIR/bash_completion" ]; then
-  . "$NVM_DIR/bash_completion"
-fi
-export PATH="$HOME/.govm/shim:$PATH"
 
 # Prefer singular secrets filename used by some setups, fall back to
 # the stow-managed `~/.zsh_secrets` if present.
@@ -231,6 +217,7 @@ export ELECTRON_ENABLE_WAYLAND=1
 export JAVA_HOME=/usr/lib/jvm/default
 export PATH=$JAVA_HOME/bin:$PATH
 
-export M2_HOME=/usr/share/maven
-export PATH=$M2_HOME/bin:$PATH
 export HOMEBREW_NO_ENV_HINTS=1
+export EDITOR=nvim
+export VISUAL=nvim
+export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
